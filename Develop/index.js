@@ -15,7 +15,7 @@
 //need to access the userinput and display it into the html pg
 var fs = require("fs");
 var inquirer = require("inquirer");
-// var axios = require("axios");
+var axios = require("axios");
 const util = require("util");
 
 
@@ -26,8 +26,13 @@ return inquirer
     .prompt([
         {
             type: "input",
-            message: "What is your github username?",
+            message: "What is your name?",
             name: "username"
+        },
+        {
+            type: "input",
+            message: "What is your github username?",
+            name: "gitUserName"
         },
         {
             type: "input",
@@ -48,60 +53,68 @@ return inquirer
             type: "input",
             message: "How to contribute?",
             name: "contribution"
+        },
+        {
+            type: "input",
+            message: "enter the delopyed link",
+            name: "deployedLink"
+        },
+        {
+            type: "input",
+            message: "please enter your github profile picture link",
+            name: "picture"
         }
     ]);
     }
-
-// const questions = [
 
 
 // function writeToFile(fileName, data) {
 
 function generateMarkdown(data) {
     return `
-      # ${data.projectName}
+# ${data.projectName}
       
-      ## About the project
+## About the project
       
-      ${data.projectDescription}
+${data.projectDescription}
       ---
       
-      ## Getting started
-      Below are the prerequisite understanding and programs that were utilized :
-      * ${data.toolsUsed[0]}-click [here]() to a tutorial to install
-      * ${data.toolsUsed[1]}-click [here]()
-      * ${data.toolsUsed[2]}()
+## Getting started
+    Below are the prerequisite understanding and programs that were utilized :
+      * ${data.toolsUsed[0]}
+      * ${data.toolsUsed[1]}
+      * ${data.toolsUsed[2]}
+      * ${data.toolsUsed[3]}
+    ---
+      
+      
+## How to contribute
+      
+      
+    ${data.contribution}
+      
+## Deployed link
+      
+    [Live site]${data.deployedLink}
       ---
       
+## Author
       
-      ## How to contribute
+**${data.username}**
+      - [Link to Github](https://github.com/${data.gitUsername})
+      - ![Profile picture](${data.picture})
       
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
       
-      ${data.contribution}
+
       
-      ## Deployed link
-      
-      [Live site]${data.liveSite}
-      ---
-      
-      ## Author
-      
-      **${data.username}**
-      - [Link to Github](https://github.com/mtbanh)
-      - [Link to LinkedIn](https://www.linkedin.com/in/mai-banh-311ba6164/)
-      
-      See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-      
-      ## Acknowledgments
-      Thank you to my tutor, Matthew Chen.
-      
-      `;
+    `;
     }
     async function init () {
         try{
             const data = await promptUser();
             const markdown = generateMarkdown(data);
-            await writeFileAsync("readMeGenerator.md", markdown);
+            await writeFileAsync("README_Generator.md", markdown);
             console.log(`yay! wrote to markdown.md`)
         } catch(err){
             console.log(err)
