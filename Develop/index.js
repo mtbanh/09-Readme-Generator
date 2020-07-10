@@ -97,5 +97,18 @@ function generateMarkdown(data) {
       
       `;
     }
+    async function init () {
+        try{
+            const data = await promptUser();
+            const markdown = generateMarkdown(data);
+            await writeFileAsync("readMeGenerator.md", markdown);
+            console.log(`yay! wrote to markdown.md`)
+        } catch(err){
+            console.log(err)
+        }
+    }
+    
+    init();
+    
     
     
