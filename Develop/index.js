@@ -1,22 +1,8 @@
-//Project scope
-//Prompt the user for the following info:
-//github username
-//name of project
-//brief description
-//installations and usage in developement of project
-//how to contribute
-//tests(?)
-//user github email and profile pic; 
-//info gather from axios call to github api using github username:
-//profile pic = data.owner.avatar_url
-//a badge
-//need to store all the userinput 
-// store into an object with keys and values = userInput
-//need to access the userinput and display it into the html pg
+
 var fs = require("fs");
 var inquirer = require("inquirer");
-var axios = require("axios");
 const util = require("util");
+// const { makeBadge, ValidationError } = require('badge-maker')
 
 
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -33,6 +19,11 @@ return inquirer
             type: "input",
             message: "What is your github username?",
             name: "gitUserName"
+        },
+        {
+            type: "input",
+            message: "What is your github email?",
+            name: "githubEmail"
         },
         {
             type: "input",
@@ -74,7 +65,8 @@ function generateMarkdown(data) {
     var toolsUsedArr = (data.toolsUsed.split(","))
     console.log(toolsUsedArr)
     return `
-# ${data.projectName}
+# ${data.projectName} ![Only 32 Kb](https://badge-size.herokuapp.com/Naereen/StrapDown.js/master/strapdown.min.js)
+
       
 ## About the project
       
@@ -82,31 +74,28 @@ ${data.projectDescription}
  ---
       
 ## Getting started
-    Below are the prerequisite understanding and programs that were utilized:
-      * ${toolsUsedArr[0]}
-      * ${toolsUsedArr[1]}
-      * ${toolsUsedArr[2]}
-      * ${toolsUsedArr[3]}
+Below are the prerequisite understanding and programs that were utilized:
+    * ${toolsUsedArr[0]}
+    * ${toolsUsedArr[1]}
+    * ${toolsUsedArr[2]}
+    * ${toolsUsedArr[3]}
 
-    ---
 ## How to contribute
     
-    ${data.contribution}
+${data.contribution}
       
 ## Deployed link
       
-    [Live site](${data.deployedLink})
-      ---
+[Live site](${data.deployedLink})
       
 ## Author
       
 **${data.username}**
-      - [Link to Github](https://github.com/${data.gitUsername})
-      - ![Profile picture](${data.picture})
+    - [Email](${data.githubEmail})
+    - [Link to Github](https://github.com/${data.gitUsername})
+    - ![Profile picture](${data.picture})
       
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-      
-
       
     `;
     }
@@ -123,6 +112,4 @@ See also the list of [contributors](https://github.com/your/project/contributors
     }
     
     init();
-    
-    
     
