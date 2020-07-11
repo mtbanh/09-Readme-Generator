@@ -71,31 +71,31 @@ return inquirer
 // function writeToFile(fileName, data) {
 
 function generateMarkdown(data) {
+    var toolsUsedArr = (data.toolsUsed.split(","))
+    console.log(toolsUsedArr)
     return `
 # ${data.projectName}
       
 ## About the project
       
 ${data.projectDescription}
-      ---
+ ---
       
 ## Getting started
-    Below are the prerequisite understanding and programs that were utilized :
-      * ${data.toolsUsed[0]}
-      * ${data.toolsUsed[1]}
-      * ${data.toolsUsed[2]}
-      * ${data.toolsUsed[3]}
+    Below are the prerequisite understanding and programs that were utilized:
+      * ${toolsUsedArr[0]}
+      * ${toolsUsedArr[1]}
+      * ${toolsUsedArr[2]}
+      * ${toolsUsedArr[3]}
+
     ---
-      
-      
 ## How to contribute
-      
-      
+    
     ${data.contribution}
       
 ## Deployed link
       
-    [Live site]${data.deployedLink}
+    [Live site](${data.deployedLink})
       ---
       
 ## Author
@@ -113,6 +113,7 @@ See also the list of [contributors](https://github.com/your/project/contributors
     async function init () {
         try{
             const data = await promptUser();
+            console.log(data)
             const markdown = generateMarkdown(data);
             await writeFileAsync("README_Generator.md", markdown);
             console.log(`yay! wrote to markdown.md`)
