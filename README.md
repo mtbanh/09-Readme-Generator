@@ -2,7 +2,9 @@
 
 ## About the project
 
+
 A command-line application that prompt user for some information about their github project, and generate a README.md with the basic format and information entered.
+
 ---
 
 ## Getting started
@@ -38,11 +40,14 @@ The code snippet below demonstrate how to create a synchronous call of function.
 
 
 ![Deployed Application](deployed-site.gif)
+
 ---
 
 ## Deployed link
 
 [Live site](https://mtbanh.github.io/09-Readme-Generator/)
+
+
 ---
 
 ## Author
